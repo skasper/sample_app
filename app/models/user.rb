@@ -36,6 +36,11 @@ class User < ActiveRecord::Base
     user if !user.nil? && user.has_password?(submited_password)
   end
 
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end
+
   def  has_password?(submited_password)
     encrypted_password == encrypt(submited_password)
   end
