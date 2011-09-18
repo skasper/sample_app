@@ -1,7 +1,9 @@
 module SessionsHelper
   
   def sign_in(user)
-    cookies.permanent.signed[:remember_token] = [user.id, user.salt]
+    #cookies.permanent.signed[:remember_token] = [user.id, user.salt]
+    session[:user] = user
+    session[:salt] = user.salt
     self.current_user = user
   end
   
@@ -18,7 +20,9 @@ module SessionsHelper
   end
   
   def sign_out
-    cookies.delete :remember_token
+    #cookies.delete :remember_token
+    session.delete :user
+    session.delete :salt
     self.current_user = nil
   end
   
@@ -29,6 +33,7 @@ module SessionsHelper
     end
     
     def remember_token
-      cookies.signed[:remember_token] || [nil, nil]
+      #cookies.signed[:remember_token] || [nil, nil]
+      [session[:user], session[:salt]]
     end
 end
