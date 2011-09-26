@@ -4,7 +4,12 @@
   <%= render 'shared/error_messages', :object => f.object %>
   <%= render 'fields', :f => f %>
   <div class="actions">
-    <%= f.submit "Sign up" %><br/>
+    <%= f.submit "Update" %><br/>
   </div>
 <% end %>
+
+<div>
+  <%= gravatar_for @user %>
+  <%= link_to "change", "http://gravatar.com/emails", :target => "_blank" %>
+</div>
 
